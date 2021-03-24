@@ -51,7 +51,8 @@ def read(txt) :
     for r in file(txt, "r") :
         
         (a, b, w) = r.split()
-         
+        a, b, w = int(a), int(b), int(w)
+        
         nodes[a], nodes[b] = True, True
         
         e = Edge(a, b, w)
@@ -61,12 +62,20 @@ def read(txt) :
     return nodes, edges
 
 
+def maxSpacing(edges, cluster) :
+    for e in edges :
+        a, b = e.a, e.b
+        if cluster.find(a) != cluster.find(b) :
+            return a, b, e.w
+        
+    return
+
 
 def main(txt, k) :
     nodes, edges = read(txt)
     edges.sort()
     kruskal = Kruskal(nodes, edges, k)
-    print kruskal.pointers
+    print maxSpacing(edges, kruskal)
         
     
 main("clustering.txt", 4)
